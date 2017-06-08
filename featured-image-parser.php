@@ -38,7 +38,7 @@ function get_data($url) {
     return $data;
 }
 
-function get_post_id () {
+function save_relative_featured_image () {
 
     global $post;
     $id = $post->ID;
@@ -56,13 +56,13 @@ function get_post_id () {
         @$dom->loadHTML(get_data($url));
         $html = $dom->saveHTML();
         $xpath = new DOMXPath($dom);
-        $nlist = $xpath->query("//meta/@content");
+        $nlist = $xpath->query("//meta[@property='og:image']/@content");
         foreach($nlist as $n){
             echo $n->nodeValue;
-
         }
+        echo $html;
     }
 
 }
 
-add_action("wp_head", "get_post_id");
+#add_action("save_post", "save_relative_featured_image");
